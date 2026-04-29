@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../booking/domain/entities/room.dart';
 import '../../domain/entities/room.dart';
 
 class RoomCard extends StatelessWidget {
@@ -15,7 +14,7 @@ class RoomCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.lightBlueAccent,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -28,7 +27,6 @@ class RoomCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Room Image Placeholder
             Container(
               height: 160,
               decoration: BoxDecoration(
@@ -51,15 +49,19 @@ class RoomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Xona: ${room.roomNumber} (${room.type})',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          'Xona: ${room.roomNumber} (${room.type})',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
@@ -69,24 +71,30 @@ class RoomCard extends StatelessWidget {
                         child: Text(
                           '\$${room.pricePerNight} / tun',
                           style: const TextStyle(
-                            color: Colors.blue,
+                            color: Colors.lightGreenAccent,
                             fontWeight: FontWeight.bold,
+                            fontSize: 14,
                           ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8,
-                    children: room.amenities.map((amenity) {
-                      return Chip(
-                        label: Text(amenity, style: const TextStyle(fontSize: 12)),
-                        padding: const EdgeInsets.all(0),
-                        backgroundColor: Colors.grey.shade100,
-                        side: BorderSide.none,
-                      );
-                    }).toList(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: room.amenities.map((amenity) {
+                        return Chip(
+                          label: Text(amenity, style: const TextStyle(fontSize: 11)),
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          backgroundColor: Colors.grey.shade100,
+                          side: BorderSide.none,
+                        );
+                      }).toList(),
+                    ),
                   )
                 ],
               ),
